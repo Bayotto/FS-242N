@@ -1,0 +1,38 @@
+package Conexao;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+
+public class ConexaoPostGresDB {
+    private static final String URL = "jdbc:postgresql://localhost:5432/Pokedex";
+    private static final String USUARIO = "postgres";
+    private static final String SENHA = "root";
+
+
+
+    public static Connection conectar(){
+
+        Connection conexao = null;
+
+        try{
+            conexao = DriverManager.getConnection(URL,USUARIO,SENHA);
+            System.out.println("Conexão com o banco de dados estabelecida com sucesso");
+        }catch(SQLException error){
+            System.err.println("Erro ao conectar ao bd:" + error.getMessage());
+
+        } return conexao;
+    }
+    public static void fecharConexao(Connection conexao){
+        if(conexao != null){
+            try{
+                conexao.close();
+                System.out.println("Conexao com bd fechada!");
+
+            }catch (SQLException e){
+                System.err.println("Erro ao fechar a conexão com bd:" + e.getMessage());
+            }
+
+        }
+    }
+}
